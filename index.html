@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>NEXOS beta release</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="favicon.png" />
+  <link rel="icon" href="/assets/favicons/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet" />
   <style>
     * {
@@ -16,7 +16,7 @@
     html, body {
       height: 100%;
       font-family: 'Cal Sans', sans-serif;
-      background: #000 url('os.png') center/cover no-repeat;
+      background: #000 url('/assets/backgrounds/os.png') center/cover no-repeat;
       overflow: hidden;
       color: white;
       -webkit-font-smoothing: antialiased;
@@ -134,7 +134,6 @@
       transition: filter 0.3s ease;
     }
 
-    /* Eyes container */
     .eyes {
       display: flex;
       gap: 0.5vw;
@@ -151,7 +150,6 @@
       transition: filter 0.3s ease;
     }
 
-    /* Pupils */
     .pupil {
       width: 9px;
       height: 14px;
@@ -164,7 +162,6 @@
       transition: transform 0.15s ease-out, filter 0.3s ease;
     }
 
-    /* Mouth base - happy */
     .mouth {
       position: relative;
       width: 30px;
@@ -178,7 +175,6 @@
       overflow: visible;
     }
 
-    /* Sad mouth - frown */
     .mouth.sad {
       border-top: 3px solid black;
       border-bottom: none;
@@ -187,25 +183,24 @@
       transform: scaleX(1) scaleY(1);
     }
 
-    /* Sad pupils rotated downward */
     .sad .pupil {
       transform: translate(0, 2px) rotate(20deg);
       filter: brightness(0.7);
     }
 
-    /* Sad eyes slightly darker */
     .sad .eye {
       filter: brightness(0.8);
     }
 
-    /* Happy state (default) */
     .happy .pupil {
       transform: translate(0, 0) rotate(0deg);
       filter: brightness(1);
     }
+
     .happy .eye {
       filter: brightness(1);
     }
+
     .happy .mouth {
       border-color: black;
       background: white;
@@ -307,7 +302,7 @@
 </head>
 <body>
   <nav>
-    <img src="favicon.png" alt="NEXOS logo" />
+    <img src="/assets/favicons/favicon.png" alt="NEXOS logo" />
     <ul>
       <li>Home</li>
       <li>About</li>
@@ -322,18 +317,14 @@
   <div class="center" id="main">
     <div class="logo-title">
       <div class="logo-container">
-        <img src="favicon.png" alt="NEXOS Logo" />
+        <img src="/assets/favicons/favicon.png" alt="NEXOS Logo" />
       </div>
       <div class="title">
         NEX<span class="letter-o">o
           <div class="eyes-and-mouth sad" id="eyesAndMouth">
             <div class="eyes">
-              <div class="eye">
-                <div class="pupil"></div>
-              </div>
-              <div class="eye">
-                <div class="pupil"></div>
-              </div>
+              <div class="eye"><div class="pupil"></div></div>
+              <div class="eye"><div class="pupil"></div></div>
             </div>
             <div class="mouth sad"></div>
           </div>
@@ -367,7 +358,6 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Mouse parallax center
     const main = document.getElementById('main');
     document.addEventListener('mousemove', e => {
       const x = (window.innerWidth / 2 - e.clientX) / 25;
@@ -379,13 +369,11 @@
       main.style.transform = `translate(-50%, -50%) rotateX(0deg) rotateY(0deg)`;
     });
 
-    // Eye tracking and emotion switching
     const eyesAndMouth = document.getElementById('eyesAndMouth');
     const pupils = eyesAndMouth.querySelectorAll('.pupil');
     const mouth = eyesAndMouth.querySelector('.mouth');
     const title = document.querySelector('.title');
 
-    // Helper to switch to happy state
     function setHappy() {
       eyesAndMouth.classList.add('happy');
       eyesAndMouth.classList.remove('sad');
@@ -397,7 +385,6 @@
       });
     }
 
-    // Helper to switch to sad state
     function setSad() {
       eyesAndMouth.classList.add('sad');
       eyesAndMouth.classList.remove('happy');
@@ -409,10 +396,8 @@
       });
     }
 
-    // Initially sad
     setSad();
 
-    // Switch to happy on hover anywhere on title
     title.addEventListener('mouseenter', () => {
       setHappy();
     });
@@ -422,7 +407,7 @@
     });
 
     title.addEventListener('mousemove', e => {
-      if (!eyesAndMouth.classList.contains('happy')) return; // Only move pupils if happy
+      if (!eyesAndMouth.classList.contains('happy')) return;
 
       const mouseX = e.clientX;
       const mouseY = e.clientY;
